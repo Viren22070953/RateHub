@@ -13,7 +13,7 @@ const verifyToken = require("../middlewares/auth.middleware");
 const authorizeRoles = require("../middlewares/role.middleware");
 const { addUserValidation, updatePasswordValidation } = require("../validations/validators");
 
-// ─── Admin Only Routes ────────────────────────────────────────────────────────
+// Admin Only Routes 
 
 // GET /api/admin/dashboard — Dashboard stats
 router.get(
@@ -56,7 +56,7 @@ router.delete(
   deleteUser
 );
 
-// ─── All Authenticated Users ──────────────────────────────────────────────────
+// All Authenticated Users
 
 // PUT /api/users/password — Update own password
 router.put(

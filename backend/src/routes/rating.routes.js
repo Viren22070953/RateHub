@@ -10,7 +10,7 @@ const verifyToken = require("../middlewares/auth.middleware");
 const authorizeRoles = require("../middlewares/role.middleware");
 const { ratingValidation } = require("../validations/validators");
 
-// ─── Normal User Routes ───────────────────────────────────────────────────────
+// Normal User Routes
 
 // POST /api/ratings — Submit a new rating
 router.post(
@@ -34,7 +34,7 @@ router.put(
   updateRating
 );
 
-// ─── Store Owner Routes ───────────────────────────────────────────────────────
+// Store Owner Routes 
 
 // GET /api/owner/dashboard — Store owner dashboard
 router.get(

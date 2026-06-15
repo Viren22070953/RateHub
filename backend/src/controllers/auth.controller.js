@@ -9,6 +9,8 @@ require("dotenv").config();
  * 
  * @access Public
  */
+
+
 const register = async (req, res) => {
   // Check validation errors
   const errors = validationResult(req);
@@ -44,6 +46,7 @@ const register = async (req, res) => {
     return res.status(500).json({ message: "Server error during registration." });
   }
 };
+
 
 /**
  * @description User Login with the values email and password
@@ -100,5 +103,7 @@ const login = async (req, res) => {
     return res.status(500).json({ message: "Server error during login." });
   }
 };
+
+
 
 module.exports = { register, login };

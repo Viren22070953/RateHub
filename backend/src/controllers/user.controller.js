@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const db = require("../config/db");
 
-// ─── Admin: Get Dashboard Counts ──────────────────────────────────────────────
+//  Admin: Get Dashboard Counts 
 const getDashboardStats = async (req, res) => {
   try {
     const [[{ totalUsers }]] = await db.query(
@@ -22,7 +22,7 @@ const getDashboardStats = async (req, res) => {
   }
 };
 
-// ─── Admin: Add New User ──────────────────────────────────────────────────────
+// Admin: Add New User 
 const addUser = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -56,11 +56,11 @@ const addUser = async (req, res) => {
   }
 };
 
-// ─── Admin: Get All Users (with filters + sorting) ────────────────────────────
+//  Admin: Get All Users (with filters + sorting) 
 const getAllUsers = async (req, res) => {
   const { name, email, address, role, sortBy, order } = req.query;
 
-  // Whitelist sortable columns to prevent SQL injection
+  
   const allowedSortFields = ["name", "email", "address", "role", "created_at"];
   const sortField = allowedSortFields.includes(sortBy) ? sortBy : "created_at";
   const sortOrder = order === "asc" ? "ASC" : "DESC";
@@ -104,7 +104,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// ─── Admin: Get Single User Details ──────────────────────────────────────────
+// Admin: Get Single User Details
 const getUserById = async (req, res) => {
   const { id } = req.params;
 
@@ -151,7 +151,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// ─── All Roles: Update Own Password ──────────────────────────────────────────
+//  All Roles: Update Own Password 
 const updatePassword = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

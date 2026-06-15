@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const db = require("../config/db");
 
-// ─── Normal User: Submit a Rating ────────────────────────────────────────────
+//  Normal User: Submit a Rating 
 const submitRating = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -44,7 +44,7 @@ const submitRating = async (req, res) => {
   }
 };
 
-// ─── Normal User: Update an Existing Rating ───────────────────────────────────
+// Normal User: Update an Existing Rating 
 const updateRating = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -79,7 +79,7 @@ const updateRating = async (req, res) => {
   }
 };
 
-// ─── Store Owner: Get Own Store Dashboard ────────────────────────────────────
+// Store Owner: Get Own Store Dashboard 
 const getOwnerDashboard = async (req, res) => {
   const ownerId = req.user.id;
 

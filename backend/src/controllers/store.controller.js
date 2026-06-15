@@ -1,7 +1,8 @@
 const { validationResult } = require("express-validator");
 const db = require("../config/db");
 
-// ─── Admin: Add New Store ─────────────────────────────────────────────────────
+
+
 const addStore = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -11,7 +12,6 @@ const addStore = async (req, res) => {
   const { name, email, address, owner_id } = req.body;
 
   try {
-    // If owner_id is given, verify the user exists and is a store_owner
     if (owner_id) {
       const [owner] = await db.query(
         "SELECT id, role FROM users WHERE id = ? AND role = 'store_owner'",
@@ -39,7 +39,7 @@ const addStore = async (req, res) => {
   }
 };
 
-// ─── Admin: Get All Stores (with filters + sorting) ───────────────────────────
+// Admin: Get All Stores (with filters + sorting)
 const getAdminStores = async (req, res) => {
   const { name, email, address, sortBy, order } = req.query;
 
@@ -84,7 +84,7 @@ const getAdminStores = async (req, res) => {
   }
 };
 
-// ─── Normal User: Get All Stores (with user's rating) ────────────────────────
+// Normal User: Get All Stores (with user's rating) 
 const getUserStores = async (req, res) => {
   const { name, address, sortBy, order } = req.query;
   const userId = req.user.id;
@@ -142,7 +142,7 @@ const deleteStore = async (req, res) => {
   }
 };
 
-// ─── Admin: Get Single Store Details ─────────────────────────────────────────
+// Admin: Get Single Store Details 
 const getStoreById = async (req, res) => {
   const { id } = req.params;
 

@@ -9,7 +9,7 @@ const ratingRoutes = require("./routes/rating.routes");
 
 const app = express();
 
-// ─── Middlewares ──────────────────────────────────────────────────────────────
+// Middlewares 
 app.use(cors({
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -19,23 +19,23 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
+//  Routes 
 app.use("/api/auth", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", storeRoutes);
 app.use("/api", ratingRoutes);
 
-// ─── Health Check ─────────────────────────────────────────────────────────────
+//  Health Check 
 app.get("/", (req, res) => {
-  res.json({ message: "Store Rating API is running ✅" });
+  res.json({ message: "Store Rating API is running " });
 });
 
-// ─── 404 Handler ─────────────────────────────────────────────────────────────
+//  404 Handler 
 app.use((req, res) => {
   res.status(404).json({ message: `Route ${req.originalUrl} not found.` });
 });
 
-// ─── Global Error Handler ─────────────────────────────────────────────────────
+//  Global Error Handler 
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err.stack);
   res.status(500).json({ message: "An unexpected server error occurred." });

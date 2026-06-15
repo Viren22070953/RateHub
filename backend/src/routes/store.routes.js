@@ -12,7 +12,7 @@ const verifyToken = require("../middlewares/auth.middleware");
 const authorizeRoles = require("../middlewares/role.middleware");
 const { addStoreValidation } = require("../validations/validators");
 
-// ─── Admin Only Routes ────────────────────────────────────────────────────────
+// Admin Only Routes 
 
 // POST /api/admin/stores — Add a new store
 router.post(
@@ -47,7 +47,7 @@ router.delete(
   deleteStore
 );
 
-// ─── Normal User Routes ───────────────────────────────────────────────────────
+//  Normal User Routes
 
 // GET /api/stores — List all stores with user's own rating
 router.get(
