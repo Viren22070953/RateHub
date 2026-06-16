@@ -1,5 +1,7 @@
 # RateHub - Store Rating Platform
 
+Live Website: [rate-hub-sepia.vercel.app](https://rate-hub-sepia.vercel.app/)
+
 RateHub is a full-stack store rating web application built for a role-based assessment workflow. The platform allows normal users to discover registered stores and submit ratings, store owners to monitor customer feedback, and administrators to manage users, stores, and platform activity.
 
 The project is structured as a production-style React frontend connected to an Express.js and MySQL backend with JWT authentication, role-based authorization, validation, and a clean dark professional UI.
@@ -269,6 +271,125 @@ npm run preview
 ```
 
 Previews the production build locally.
+
+## Deployment
+
+RateHub is deployed using a modern full-stack hosting setup:
+
+- Frontend: Vercel
+- Backend: Render
+- Database: Railway MySQL
+
+### Live URLs
+
+- Frontend: [https://rate-hub-sepia.vercel.app/](https://rate-hub-sepia.vercel.app/)
+- Backend API: `https://ratehub-backend.onrender.com/api`
+- Backend health check: `https://ratehub-backend.onrender.com/`
+
+### Frontend Deployment - Vercel
+
+The React frontend is deployed on Vercel from the `frontend/` directory.
+
+Vercel configuration:
+
+```text
+Framework Preset: Vite
+Root Directory: frontend
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install
+```
+
+Required Vercel environment variable:
+
+```env
+VITE_API_BASE_URL=https://ratehub-backend.onrender.com/api
+```
+
+The frontend includes a `vercel.json` rewrite configuration so React Router routes work correctly after refresh or direct navigation:
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+### Backend Deployment - Render
+
+The Express backend is deployed on Render from the `backend/` directory.
+
+Render configuration:
+
+```text
+Runtime: Node
+Root Directory: backend
+Build Command: npm install
+Start Command: npm start
+```
+
+Required Render environment variables:
+
+```env
+DB_HOST=your_railway_public_mysql_host
+DB_PORT=your_railway_public_mysql_port
+DB_USER=your_railway_mysql_user
+DB_PASSWORD=your_railway_mysql_password
+DB_NAME=your_railway_database_name
+JWT_SECRET=your_secure_jwt_secret
+JWT_EXPIRES_IN=15d
+FRONTEND_URL=https://rate-hub-sepia.vercel.app
+```
+
+The backend uses `FRONTEND_URL` for production CORS and also allows local development origins.
+
+### Database Deployment - Railway MySQL
+
+The production database is hosted on Railway MySQL. The backend connects to Railway using the public MySQL connection values.
+
+Use the Railway `MYSQL_PUBLIC_URL` to extract:
+
+```text
+mysql://USER:PASSWORD@HOST:PORT/DATABASE
+```
+
+Then map the values into Render:
+
+```text
+USER      -> DB_USER
+PASSWORD  -> DB_PASSWORD
+HOST      -> DB_HOST
+PORT      -> DB_PORT
+DATABASE  -> DB_NAME
+```
+
+The backend automatically creates the required tables when it starts:
+
+- `users`
+- `stores`
+- `ratings`
+
+### Production Admin Setup
+
+After the Railway database is connected, create the admin user by running the seed script with production database credentials:
+
+```powershell
+cd C:\ZStore_Rating_Website\backend
+node scripts\createAdmin.js
+```
+
+Default admin credentials:
+
+```text
+Email: admin@store.com
+Password: Admin@123
+```
+
+After logging in as admin, stores and store owners can be added from the admin dashboard.
 
 ## API Overview
 
